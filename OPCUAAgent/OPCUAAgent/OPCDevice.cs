@@ -40,7 +40,7 @@ public class OPCDevice
     {
         Program.maintenanceDate = DateTime.Now;
         Console.WriteLine($"Device Last Maintenace Date set to: {Program.maintenanceDate} ...\n");
-        await IoTDevice.UpdateTwinValueAsync("Last Maintenance Date", Program.maintenanceDate);
+        await IoTDevice.UpdateTwinValueAsync("LastMaintenanceDate", Program.maintenanceDate);
     }
 
 }

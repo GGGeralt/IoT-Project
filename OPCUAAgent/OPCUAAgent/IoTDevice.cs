@@ -213,8 +213,8 @@ public class IoTDevice
         await client.SetReceiveMessageHandlerAsync(OnC2dMessageReceivedAsync, client);
 
         await client.SetMethodHandlerAsync("EmergencyStop", EmergencyStopHandler, client);
-        await client.SetMethodHandlerAsync("ResetErrorStatus", EmergencyStopHandler, client);
-        await client.SetMethodHandlerAsync("Maintenance", EmergencyStopHandler, client);
+        await client.SetMethodHandlerAsync("ResetErrorStatus", ResetErrorStatusHandler, client);
+        await client.SetMethodHandlerAsync("Maintenance", MaintenanceHandler, client);
 
         await client.SetMethodDefaultHandlerAsync(DefaultServiceHandler, client);
 
