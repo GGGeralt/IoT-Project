@@ -1,0 +1,4 @@
+Device primary connection string:
+HostName=EasyTestHub.azure-devices.net;DeviceId=newDevice;SharedAccessKey=JMz7/yBdlC3MAjQlrx0q2vcKfYjV2hoyDsKLLGcvE28=
+Opc server addres:
+opc.tcp://localhost:4840/
