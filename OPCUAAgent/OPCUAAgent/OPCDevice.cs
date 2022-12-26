@@ -12,11 +12,13 @@ public class OPCDevice
 {
     public static OpcClient client;
 
-   
+
     public static void Start()
     {
         client = new OpcClient(File.ReadAllLines("Settings.txt")[3]);
         client.Connect();
+        Console.WriteLine("Connected to Opc");
+
     }
 
     public static void End()
@@ -43,5 +45,11 @@ public class OPCDevice
         await IoTDevice.UpdateTwinValueAsync("LastMaintenanceDate", Program.maintenanceDate);
     }
 
+    public static async Task ReduceProductionRate(string deviceId)
+    {
+        int value = (int)client.ReadNode($"ns=2;s=Device {deviceId}/ProductionStatus").Value;
+        client.WriteNode($"ns=2;s={deviceId}/ProductionRate", OpcAttribute.Value, value - 10);
+        await Task.Delay(1000);
+    }
 }
 

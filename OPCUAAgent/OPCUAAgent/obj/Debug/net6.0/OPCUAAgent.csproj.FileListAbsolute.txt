@@ -95,3 +95,13 @@ C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project
 C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\obj\Debug\net6.0\OPCUAAgent.pdb
 C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\obj\Debug\net6.0\OPCUAAgent.genruntimeconfig.cache
 C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\obj\Debug\net6.0\ref\OPCUAAgent.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\Azure.Core.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\Azure.Identity.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\Azure.Storage.Common.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\Azure.Storage.Queues.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\System.IO.Hashing.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\System.Memory.Data.dll

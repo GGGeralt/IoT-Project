@@ -1,19 +1,25 @@
 ﻿using Microsoft.Azure.Devices.Client;
 using Microsoft.Azure.Devices.Shared;
+using Azure.Storage.Queues;
 using Newtonsoft.Json;
 using Opc.UaFx.Client;
 using Opc.UaFx;
 using System.Net.Mime;
 using System.Text;
+using Microsoft.Identity.Client;
+using Microsoft.Azure.Amqp.Framing;
 
 
 public class IoTDevice
 {
-    public static DeviceClient client;
+    public static DeviceClient deviceClient;
+    public static QueueClient queueClient;
 
-    public IoTDevice(DeviceClient deviceClient)
+    public IoTDevice(DeviceClient deviceClient, QueueClient queueClient)
     {
-        client = deviceClient;
+        IoTDevice.deviceClient = deviceClient;
+        IoTDevice.queueClient = queueClient;
+        Console.WriteLine("Connected to IoT");
     }
 
     #region Sending Messages
@@ -37,9 +43,8 @@ public class IoTDevice
                     long badCount = (long)opcClient.ReadNode($"ns=2;s=Device {deviceId}/BadCount").Value;
                     double temperature = (double)opcClient.ReadNode($"ns=2;s=Device {deviceId}/Temperature").Value;
 
-                    var temeletryData = new
+                    dynamic telemetryData = new
                     {
-                        deviceId = deviceId,
                         productionStatus = productionStatus,
                         workorderId = workorderId,
                         goodCount = goodCount,
@@ -47,24 +52,23 @@ public class IoTDevice
                         temperature = temperature
                     };
 
-                    await SendTelemetryData(client, temeletryData);
+                    await SendToStorage(deviceId, telemetryData);
+
 
                     #endregion telemetryValues
 
                     int deviceErrors = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/DeviceError").Value;
                     int productionRate = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/ProductionRate").Value;
 
-                    await UpdateTwinAsync(deviceErrors, productionRate);
-
+                    await UpdateTwinAsync(deviceId, deviceErrors, productionRate);
                 }
 
                 //Console.WriteLine();
             }
             //Console.WriteLine("-----------------------------------------------------------------");
         }
-        await Task.Delay(1000);
     }
-    public static async Task SendTelemetryData(DeviceClient client, dynamic machineData)
+    public static async Task SendTelemetryData(DeviceClient client, int deviceId, dynamic machineData)
     {
         Console.WriteLine($"Device sending ||TELEMETRY DATA|| messages to IoTHub...\n");
 
@@ -73,7 +77,6 @@ public class IoTDevice
         Message eventMessage = new Message(Encoding.UTF8.GetBytes(dataString));
         eventMessage.ContentType = MediaTypeNames.Application.Json;
         eventMessage.ContentEncoding = "utf-8";
-        //eventMessage.Properties.Add("temperatureAlert", (temeletryData.temperature > 30) ? "true" : "false");
         Console.WriteLine($"\t{DateTime.Now.ToLocalTime()}> Sending message Telemetry Data: [{dataString}]");
 
         await client.SendEventAsync(eventMessage);
@@ -88,7 +91,7 @@ public class IoTDevice
         Console.WriteLine($"\t{DateTime.Now}> C2D message callback - message received with Id={receivedMessage.MessageId}.");
         PrintMessage(receivedMessage);
 
-        await client.CompleteAsync(receivedMessage);
+        await deviceClient.CompleteAsync(receivedMessage);
         Console.WriteLine($"\t{DateTime.Now}> Completed C2D message with Id={receivedMessage.MessageId}.");
 
         receivedMessage.Dispose();
@@ -108,9 +111,34 @@ public class IoTDevice
 
     #endregion Receiving Messages
 
+
+    public static async Task SendToCloud(int deviceId, dynamic data)
+    {
+        await SendTelemetryData(deviceClient, deviceId, data);
+    }
+
+    #region Storage
+    public static async Task SendToStorage(int deviceId, dynamic data)
+    {
+
+        string text = $@" 
+                DeviceId: Device {deviceId},
+                ProductionStatus: {data.productionStatus},
+                WorkorderId: {data.workorderId},
+                GoodCount: {data.goodCount},
+                BadCount: {data.badCount},
+                Temperature: {data.temperature}
+            ";
+
+        Console.WriteLine($"DeviceId: Device {deviceId}, data sent to storage");
+
+        await queueClient.SendMessageAsync(text);
+    }
+    #endregion Storage
+
     #region Device Twin
 
-    public static async Task UpdateTwinAsync(int deviceErrors, int productionRate)
+    public static async Task UpdateTwinAsync(int deviceId, int deviceErrors, int productionRate)
     {
         await UpdateTwinValueAsync("deviceErrors", deviceErrors);
         await UpdateTwinValueAsync("productionRate", productionRate);
@@ -118,22 +146,21 @@ public class IoTDevice
 
     public static async Task UpdateTwinValueAsync(string valueName, int value)
     {
-        var twin = await client.GetTwinAsync();
+        var twin = await deviceClient.GetTwinAsync();
 
         var reportedProperties = new TwinCollection();
         reportedProperties[valueName] = value;
 
-        await client.UpdateReportedPropertiesAsync(reportedProperties);
+        await deviceClient.UpdateReportedPropertiesAsync(reportedProperties);
     }
 
     public static async Task UpdateTwinValueAsync(string valueName, DateTime value)
     {
-        var twin = await client.GetTwinAsync();
-
+        var twin = await deviceClient.GetTwinAsync();
         var reportedProperties = new TwinCollection();
         reportedProperties[valueName] = value;
 
-        await client.UpdateReportedPropertiesAsync(reportedProperties);
+        await deviceClient.UpdateReportedPropertiesAsync(reportedProperties);
     }
 
     private async Task OnDesiredPropertyChanged(TwinCollection desiredProperties, object userContext)
@@ -141,9 +168,9 @@ public class IoTDevice
         Console.WriteLine($"\tDesired property change:\n\t{JsonConvert.SerializeObject(desiredProperties)}");
         Console.WriteLine("\tSending current time as reported property");
         TwinCollection reportedProperties = new TwinCollection();
-        reportedProperties["DateTimeLastDesiredPropertyChangeReceived"] = DateTime.Now;
+        reportedProperties["DateTimeLastDesiredPropertyChangeReceived"] = "POMOCY";
 
-        await client.UpdateReportedPropertiesAsync(reportedProperties).ConfigureAwait(false);
+        await deviceClient.UpdateReportedPropertiesAsync(reportedProperties).ConfigureAwait(false);
     }
 
     #endregion Device Twin
@@ -210,15 +237,15 @@ public class IoTDevice
 
     public async Task InitializeHandlers()
     {
-        await client.SetReceiveMessageHandlerAsync(OnC2dMessageReceivedAsync, client);
+        await deviceClient.SetReceiveMessageHandlerAsync(OnC2dMessageReceivedAsync, deviceClient);
 
-        await client.SetMethodHandlerAsync("EmergencyStop", EmergencyStopHandler, client);
-        await client.SetMethodHandlerAsync("ResetErrorStatus", ResetErrorStatusHandler, client);
-        await client.SetMethodHandlerAsync("Maintenance", MaintenanceHandler, client);
+        await deviceClient.SetMethodHandlerAsync("EmergencyStop", EmergencyStopHandler, deviceClient);
+        await deviceClient.SetMethodHandlerAsync("ResetErrorStatus", ResetErrorStatusHandler, deviceClient);
+        await deviceClient.SetMethodHandlerAsync("Maintenance", MaintenanceHandler, deviceClient);
 
-        await client.SetMethodDefaultHandlerAsync(DefaultServiceHandler, client);
+        await deviceClient.SetMethodDefaultHandlerAsync(DefaultServiceHandler, deviceClient);
 
-        await client.SetDesiredPropertyUpdateCallbackAsync(OnDesiredPropertyChanged, client);
+        await deviceClient.SetDesiredPropertyUpdateCallbackAsync(OnDesiredPropertyChanged, deviceClient);
     }
 }
 
