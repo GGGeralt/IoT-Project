@@ -5,19 +5,18 @@ using Azure.Storage.Queues;
 using Newtonsoft.Json;
 using System.Net.Mime;
 using System.Text;
+using Properties;
 
 public class Program
 {
-    static string[] settings = File.ReadAllLines("Settings.txt");
-
     public static DateTime maintenanceDate = DateTime.MinValue;
 
     static async Task Main(string[] args)
     {
-        using var deviceClient = DeviceClient.CreateFromConnectionString(settings[1], TransportType.Mqtt);
+        using var deviceClient = DeviceClient.CreateFromConnectionString(Class1.settings[1], TransportType.Mqtt);
         await deviceClient.OpenAsync();
 
-        QueueClient queueClient = new QueueClient(settings[5], "iot-project");
+        QueueClient queueClient = new QueueClient(Class1.settings[5], "iot-project");
         await queueClient.CreateIfNotExistsAsync();
 
         var device = new IoTDevice(deviceClient, queueClient);
@@ -38,6 +37,5 @@ public class Program
 
         OPCDevice.End();
         Console.ReadKey(true);
-
     }
 }

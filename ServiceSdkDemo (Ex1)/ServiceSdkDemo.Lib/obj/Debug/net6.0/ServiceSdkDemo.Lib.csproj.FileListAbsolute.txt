@@ -1,0 +1,24 @@
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\bin\Debug\net6.0\ServiceSdkDemo.Lib.deps.json
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\bin\Debug\net6.0\ServiceSdkDemo.Lib.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\bin\Debug\net6.0\ServiceSdkDemo.Lib.pdb
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.csproj.AssemblyReference.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.AssemblyInfoInputs.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.AssemblyInfo.cs
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.csproj.CoreCompileInputs.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\refint\ServiceSdkDemo.Lib.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.pdb
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ref\ServiceSdkDemo.Lib.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\bin\Debug\net6.0\ServiceSdkDemo.Lib.deps.json
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\bin\Debug\net6.0\ServiceSdkDemo.Lib.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\bin\Debug\net6.0\ServiceSdkDemo.Lib.pdb
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.csproj.AssemblyReference.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.AssemblyInfoInputs.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.AssemblyInfo.cs
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.csproj.CoreCompileInputs.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\refint\ServiceSdkDemo.Lib.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ServiceSdkDemo.Lib.pdb
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Lib\obj\Debug\net6.0\ref\ServiceSdkDemo.Lib.dll

@@ -1,0 +1,52 @@
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Console.exe
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Console.deps.json
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Console.runtimeconfig.json
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Console.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Console.pdb
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Azure.Core.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Microsoft.Azure.Amqp.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Microsoft.Azure.Devices.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Microsoft.Azure.Devices.Shared.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Microsoft.Rest.ClientRuntime.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\System.Memory.Data.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Lib.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Lib.pdb
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.csproj.AssemblyReference.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.AssemblyInfoInputs.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.AssemblyInfo.cs
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.csproj.CoreCompileInputs.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.csproj.CopyComplete
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\refint\ServiceSdkDemo.Console.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.pdb
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.genruntimeconfig.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\Zajecia 3\ServiceSdkDemo (Ex1)\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ref\ServiceSdkDemo.Console.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Console.exe
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Console.deps.json
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Console.runtimeconfig.json
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Console.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Console.pdb
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Azure.Core.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Microsoft.Azure.Amqp.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Microsoft.Azure.Devices.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Microsoft.Azure.Devices.Shared.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Microsoft.Rest.ClientRuntime.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\System.Memory.Data.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Lib.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\bin\Debug\net6.0\ServiceSdkDemo.Lib.pdb
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.csproj.AssemblyReference.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.AssemblyInfoInputs.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.AssemblyInfo.cs
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.csproj.CoreCompileInputs.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.csproj.CopyComplete
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\refint\ServiceSdkDemo.Console.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.pdb
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ServiceSdkDemo.Console.genruntimeconfig.cache
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\ServiceSdkDemo (Ex1)\ServiceSdkDemo.Console\obj\Debug\net6.0\ref\ServiceSdkDemo.Console.dll

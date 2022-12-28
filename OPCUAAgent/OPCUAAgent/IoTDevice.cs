@@ -53,7 +53,7 @@ public class IoTDevice
                     };
 
                     await SendToStorage(deviceId, telemetryData);
-
+                    await SendTelemetryData(deviceClient, deviceId, telemetryData);
 
                     #endregion telemetryValues
 
@@ -77,7 +77,7 @@ public class IoTDevice
         Message eventMessage = new Message(Encoding.UTF8.GetBytes(dataString));
         eventMessage.ContentType = MediaTypeNames.Application.Json;
         eventMessage.ContentEncoding = "utf-8";
-        Console.WriteLine($"\t{DateTime.Now.ToLocalTime()}> Sending message Telemetry Data: [{dataString}]");
+        //Console.WriteLine($"\t{DateTime.Now.ToLocalTime()}> Sending message Telemetry Data: [{dataString}]");
 
         await client.SendEventAsync(eventMessage);
     }
@@ -111,12 +111,6 @@ public class IoTDevice
 
     #endregion Receiving Messages
 
-
-    public static async Task SendToCloud(int deviceId, dynamic data)
-    {
-        await SendTelemetryData(deviceClient, deviceId, data);
-    }
-
     #region Storage
     public static async Task SendToStorage(int deviceId, dynamic data)
     {
@@ -130,7 +124,7 @@ public class IoTDevice
                 Temperature: {data.temperature}
             ";
 
-        Console.WriteLine($"DeviceId: Device {deviceId}, data sent to storage");
+        //Console.WriteLine($"DeviceId: Device {deviceId}, data sent to storage");
 
         await queueClient.SendMessageAsync(text);
     }
@@ -140,21 +134,25 @@ public class IoTDevice
 
     public static async Task UpdateTwinAsync(int deviceId, int deviceErrors, int productionRate)
     {
-        await UpdateTwinValueAsync("deviceErrors", deviceErrors);
-        await UpdateTwinValueAsync("productionRate", productionRate);
+        await UpdateTwinValueAsync("deviceErrors", deviceErrors, deviceId);
+        await UpdateTwinValueAsync("productionRate", productionRate, deviceId);
     }
 
-    public static async Task UpdateTwinValueAsync(string valueName, int value)
+    public static async Task UpdateTwinValueAsync(string valueName, int value, int deviceId = 0)
     {
         var twin = await deviceClient.GetTwinAsync();
 
+        string device = $"Device {deviceId}";
+
         var reportedProperties = new TwinCollection();
-        reportedProperties[valueName] = value;
+
+        reportedProperties[device] = new TwinCollection();
+        reportedProperties[device][valueName] = value;
 
         await deviceClient.UpdateReportedPropertiesAsync(reportedProperties);
     }
 
-    public static async Task UpdateTwinValueAsync(string valueName, DateTime value)
+    public static async Task UpdateTwinValueAsync(string valueName, DateTime value, int deviceId = 0)
     {
         var twin = await deviceClient.GetTwinAsync();
         var reportedProperties = new TwinCollection();
@@ -166,9 +164,8 @@ public class IoTDevice
     private async Task OnDesiredPropertyChanged(TwinCollection desiredProperties, object userContext)
     {
         Console.WriteLine($"\tDesired property change:\n\t{JsonConvert.SerializeObject(desiredProperties)}");
-        Console.WriteLine("\tSending current time as reported property");
         TwinCollection reportedProperties = new TwinCollection();
-        reportedProperties["DateTimeLastDesiredPropertyChangeReceived"] = "POMOCY";
+        reportedProperties["productionRate"] = userContext;
 
         await deviceClient.UpdateReportedPropertiesAsync(reportedProperties).ConfigureAwait(false);
     }
@@ -176,7 +173,7 @@ public class IoTDevice
     #endregion Device Twin
 
     #region Direct Methods
-
+    #region EmergencyStop
     async Task EmergencyStop(string deviceId)
     {
         OPCDevice.EmergencyStop(deviceId);
@@ -192,7 +189,8 @@ public class IoTDevice
 
         return new MethodResponse(0);
     }
-
+    #endregion EmergencyStop
+    #region ResetErrorStatus
     async Task ResetErrorStatus(string deviceId)
     {
         OPCDevice.ResetErrorStatus(deviceId);
@@ -208,7 +206,8 @@ public class IoTDevice
 
         return new MethodResponse(0);
     }
-
+    #endregion ResetErrorStatus
+    #region Maintenance
     async Task Maintenance()
     {
         OPCDevice.Maintenance();
@@ -223,7 +222,26 @@ public class IoTDevice
 
         return new MethodResponse(0);
     }
+    #endregion Maintenance
+    #region ReduceProductionRate
 
+    private async Task ReduceProductionRate(string deviceId)
+    {
+        OPCDevice.ReduceProductionRate(deviceId);
+        await Task.Delay(1000);
+    }
+    private async Task<MethodResponse> ReduceProductionRateHandler(MethodRequest methodRequest, object userContext)
+    {
+        Console.WriteLine($"\tMETHOD EXECUTED: {methodRequest.Name}");
+
+        var payload = JsonConvert.DeserializeAnonymousType(methodRequest.DataAsJson, new { deviceId = default(string) });
+
+        await ReduceProductionRate(payload.deviceId);
+
+        return new MethodResponse(0);
+    }
+
+    #endregion ReduceProductionRate
     private static async Task<MethodResponse> DefaultServiceHandler(MethodRequest methodRequest, object userContext)
     {
         Console.WriteLine($"\tMETHOD EXECUTED: {methodRequest.Name}");
@@ -242,6 +260,7 @@ public class IoTDevice
         await deviceClient.SetMethodHandlerAsync("EmergencyStop", EmergencyStopHandler, deviceClient);
         await deviceClient.SetMethodHandlerAsync("ResetErrorStatus", ResetErrorStatusHandler, deviceClient);
         await deviceClient.SetMethodHandlerAsync("Maintenance", MaintenanceHandler, deviceClient);
+        await deviceClient.SetMethodHandlerAsync("ReduceProductionRate", ReduceProductionRateHandler, deviceClient);
 
         await deviceClient.SetMethodDefaultHandlerAsync(DefaultServiceHandler, deviceClient);
 

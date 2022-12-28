@@ -1,0 +1,2 @@
+DefaultEndpointsProtocol=https;AccountName=storageblip;AccountKey=Q3F2LkX18e3jC0RrHk4BBh3F5nGD0pfWqHr1hpU4wxzp1ZKWLALjn1omvj8te1r3XY7uQ7yDwnz/+AStwPNsIA==;EndpointSuffix=core.windows.net
+HostName=EasyTestHub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=k0MGf4s9tgYhrzOOz41Pu5fzGnbX7EIsxIQHaROjmdY=

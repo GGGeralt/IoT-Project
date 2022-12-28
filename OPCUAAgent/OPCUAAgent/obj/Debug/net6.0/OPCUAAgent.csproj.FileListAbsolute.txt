@@ -105,3 +105,5 @@ C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project
 C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
 C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\System.IO.Hashing.dll
 C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\System.Memory.Data.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\Properties.dll
+C:\Users\barte\Desktop\projekty\studia\rok 2\semestr 3\iot\Materialy\IoT-Project\OPCUAAgent\OPCUAAgent\bin\Debug\net6.0\Properties.pdb

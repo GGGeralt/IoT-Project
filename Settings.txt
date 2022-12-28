@@ -1,0 +1,6 @@
+Device primary connection string:
+HostName=EasyTestHub.azure-devices.net;DeviceId=newDevice;SharedAccessKey=JMz7/yBdlC3MAjQlrx0q2vcKfYjV2hoyDsKLLGcvE28=
+Opc server addres:
+opc.tcp://localhost:4840/
+Queue storage connection string
+DefaultEndpointsProtocol=https;AccountName=storageblip;AccountKey=Q3F2LkX18e3jC0RrHk4BBh3F5nGD0pfWqHr1hpU4wxzp1ZKWLALjn1omvj8te1r3XY7uQ7yDwnz/+AStwPNsIA==;EndpointSuffix=core.windows.net

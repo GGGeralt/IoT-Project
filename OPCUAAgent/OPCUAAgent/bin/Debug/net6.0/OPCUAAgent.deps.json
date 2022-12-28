@@ -11,7 +11,8 @@
           "Azure.Identity": "1.8.0",
           "Azure.Storage.Queues": "12.12.0",
           "Microsoft.Azure.Devices.Client": "1.41.3",
-          "Opc.UaFx.Client": "2.30.0"
+          "Opc.UaFx.Client": "2.30.0",
+          "Properties": "1.0.0.0"
         },
         "runtime": {
           "OPCUAAgent.dll": {}
@@ -1127,6 +1128,14 @@
             "fileVersion": "9.3.2.0"
           }
         }
+      },
+      "Properties/1.0.0.0": {
+        "runtime": {
+          "Properties.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -1975,6 +1984,11 @@
       "sha512": "sha512-iVH/VhGsViIEo1G89BuK84RBsArJQOFy5sM6mrZ2IeXPcRkEmsy1dWsbgXtXLh1odiTadu2zMEdyUWIkyC2U7w==",
       "path": "windowsazure.storage/9.3.2",
       "hashPath": "windowsazure.storage.9.3.2.nupkg.sha512"
+    },
+    "Properties/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

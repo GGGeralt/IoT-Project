@@ -14,4 +14,10 @@
     <PackageReference Include="Opc.UaFx.Client" Version="2.30.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Properties">
+      <HintPath>..\..\Properties\Properties\bin\Debug\net6.0\Properties.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
