@@ -1,41 +1,46 @@
 ﻿using Opc.UaFx;
 using Opc.UaFx.Client;
 using Microsoft.Azure.Devices.Client;
-using Azure.Storage.Queues;
 using Newtonsoft.Json;
 using System.Net.Mime;
 using System.Text;
-using Properties;
 
 public class Program
 {
     public static DateTime maintenanceDate = DateTime.MinValue;
+    public static int deviceID;
 
     static async Task Main(string[] args)
     {
-        using var deviceClient = DeviceClient.CreateFromConnectionString(Class1.settings[1], TransportType.Mqtt);
-        await deviceClient.OpenAsync();
-
-        QueueClient queueClient = new QueueClient(Class1.settings[5], "iot-project");
-        await queueClient.CreateIfNotExistsAsync();
-
-        var device = new IoTDevice(deviceClient, queueClient);
-
-        await device.InitializeHandlers();
-
         OPCDevice opcDevice = new OPCDevice();
 
         OPCDevice.Start();
+
+        Console.WriteLine("Input Device ID(number)");
+        deviceID = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine(File.ReadAllLines($"../../../../../Settings.txt")[2 + deviceID]);
+        using var deviceClient = DeviceClient.CreateFromConnectionString(File.ReadAllLines($"../../../../../Settings.txt")[2 + deviceID], TransportType.Mqtt);
+        await deviceClient.OpenAsync();
+
+        var device = new IoTDevice(deviceClient);
+
+        await device.InitializeHandlers();
 
 
         //odczytywanie i wysylanie co sekunde
         var periodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(1));
         while (await periodicTimer.WaitForNextTickAsync())
         {
-            IoTDevice.SendDataToIoTHub(OPCDevice.client);
+            IoTDevice.OneDeviceMagic(OPCDevice.client, deviceID);
         }
 
         OPCDevice.End();
         Console.ReadKey(true);
     }
+}
+
+public static class Class1
+{
+    public static string[] settings = File.ReadAllLines($"../../../../../Settings.txt");
 }

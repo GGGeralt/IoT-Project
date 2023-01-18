@@ -1,6 +1,5 @@
 ﻿using Microsoft.Azure.Devices.Client;
 using Microsoft.Azure.Devices.Shared;
-using Azure.Storage.Queues;
 using Newtonsoft.Json;
 using Opc.UaFx.Client;
 using Opc.UaFx;
@@ -8,67 +7,101 @@ using System.Net.Mime;
 using System.Text;
 using Microsoft.Identity.Client;
 using Microsoft.Azure.Amqp.Framing;
-
+using System.Net.Sockets;
 
 public class IoTDevice
 {
     public static DeviceClient deviceClient;
-    public static QueueClient queueClient;
 
-    public IoTDevice(DeviceClient deviceClient, QueueClient queueClient)
+    public IoTDevice(DeviceClient deviceClient)
     {
         IoTDevice.deviceClient = deviceClient;
-        IoTDevice.queueClient = queueClient;
         Console.WriteLine("Connected to IoT");
     }
 
     #region Sending Messages
-    public static async Task SendDataToIoTHub(OpcClient opcClient)
+    public static async Task OneDeviceMagic(OpcClient opcClient, int deviceId)
     {
         var node = opcClient.BrowseNode(OpcObjectTypes.ObjectsFolder);
 
-        if (node.Children().Count() > 1)
+        #region telemetryValues
+
+        int productionStatus = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/ProductionStatus").Value;
+        string workorderId = (string)opcClient.ReadNode($"ns=2;s=Device {deviceId}/WorkorderId").Value;
+        long goodCount = (long)opcClient.ReadNode($"ns=2;s=Device {deviceId}/GoodCount").Value;
+        long badCount = (long)opcClient.ReadNode($"ns=2;s=Device {deviceId}/BadCount").Value;
+        double temperature = (double)opcClient.ReadNode($"ns=2;s=Device {deviceId}/Temperature").Value;
+
+        dynamic telemetryData = new
         {
-            foreach (var childNode in node.Children())
-            {
-                if (!childNode.DisplayName.Value.Contains("Server"))
-                {
-                    #region telemetryValues
+            productionStatus = productionStatus,
+            workorderId = workorderId,
+            goodCount = goodCount,
+            badCount = badCount,
+            temperature = temperature
+        };
 
-                    int deviceId = Convert.ToInt32(childNode.DisplayName.Value.Split(" ")[1]);
+        Console.WriteLine(telemetryData);
 
-                    int productionStatus = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/ProductionStatus").Value;
-                    string workorderId = (string)opcClient.ReadNode($"ns=2;s=Device {deviceId}/WorkorderId").Value;
-                    long goodCount = (long)opcClient.ReadNode($"ns=2;s=Device {deviceId}/GoodCount").Value;
-                    long badCount = (long)opcClient.ReadNode($"ns=2;s=Device {deviceId}/BadCount").Value;
-                    double temperature = (double)opcClient.ReadNode($"ns=2;s=Device {deviceId}/Temperature").Value;
+        await SendTelemetryData(deviceClient, telemetryData);
 
-                    dynamic telemetryData = new
-                    {
-                        productionStatus = productionStatus,
-                        workorderId = workorderId,
-                        goodCount = goodCount,
-                        badCount = badCount,
-                        temperature = temperature
-                    };
+        #endregion telemetryValues
 
-                    await SendToStorage(deviceId, telemetryData);
-                    await SendTelemetryData(deviceClient, deviceId, telemetryData);
+        int deviceErrors = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/DeviceError").Value;
+        int productionRate = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/ProductionRate").Value;
+        //HERE
+        await UpdateTwinAsync(deviceErrors, productionRate);
 
-                    #endregion telemetryValues
+        //Console.WriteLine("-----------------------------------------------------------------");
 
-                    int deviceErrors = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/DeviceError").Value;
-                    int productionRate = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/ProductionRate").Value;
-
-                    await UpdateTwinAsync(deviceId, deviceErrors, productionRate);
-                }
-
-                //Console.WriteLine();
-            }
-            //Console.WriteLine("-----------------------------------------------------------------");
-        }
     }
-    public static async Task SendTelemetryData(DeviceClient client, int deviceId, dynamic machineData)
+
+    //public static async Task SendDataToIoTHub(OpcClient opcClient)
+    //{
+    //    var node = opcClient.BrowseNode(OpcObjectTypes.ObjectsFolder);
+
+    //    if (node.Children().Count() > 1)
+    //    {
+    //        foreach (var childNode in node.Children())
+    //        {
+    //            if (!childNode.DisplayName.Value.Contains("Server"))
+    //            {
+    //                #region telemetryValues
+
+    //                int deviceId = Convert.ToInt32(childNode.DisplayName.Value.Split(" ")[1]);
+
+    //                int productionStatus = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/ProductionStatus").Value;
+    //                string workorderId = (string)opcClient.ReadNode($"ns=2;s=Device {deviceId}/WorkorderId").Value;
+    //                long goodCount = (long)opcClient.ReadNode($"ns=2;s=Device {deviceId}/GoodCount").Value;
+    //                long badCount = (long)opcClient.ReadNode($"ns=2;s=Device {deviceId}/BadCount").Value;
+    //                double temperature = (double)opcClient.ReadNode($"ns=2;s=Device {deviceId}/Temperature").Value;
+
+    //                dynamic telemetryData = new
+    //                {
+    //                    productionStatus = productionStatus,
+    //                    workorderId = workorderId,
+    //                    goodCount = goodCount,
+    //                    badCount = badCount,
+    //                    temperature = temperature
+    //                };
+
+
+    //                await SendTelemetryData(deviceClient, deviceId, telemetryData);
+
+    //                #endregion telemetryValues
+
+    //                int deviceErrors = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/DeviceError").Value;
+    //                int productionRate = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/ProductionRate").Value;
+
+    //                await UpdateTwinAsync(deviceId, deviceErrors, productionRate);
+    //            }
+
+    //            //Console.WriteLine();
+    //        }
+    //        //Console.WriteLine("-----------------------------------------------------------------");
+    //    }
+    //}
+    public static async Task SendTelemetryData(DeviceClient client, dynamic machineData)
     {
         Console.WriteLine($"Device sending ||TELEMETRY DATA|| messages to IoTHub...\n");
 
@@ -111,44 +144,22 @@ public class IoTDevice
 
     #endregion Receiving Messages
 
-    #region Storage
-    public static async Task SendToStorage(int deviceId, dynamic data)
-    {
-
-        string text = $@" 
-                DeviceId: Device {deviceId},
-                ProductionStatus: {data.productionStatus},
-                WorkorderId: {data.workorderId},
-                GoodCount: {data.goodCount},
-                BadCount: {data.badCount},
-                Temperature: {data.temperature}
-            ";
-
-        //Console.WriteLine($"DeviceId: Device {deviceId}, data sent to storage");
-
-        await queueClient.SendMessageAsync(text);
-    }
-    #endregion Storage
-
     #region Device Twin
-
-    public static async Task UpdateTwinAsync(int deviceId, int deviceErrors, int productionRate)
+    public static async Task UpdateTwinAsync(int deviceErrors, int productionRate)
     {
-        await UpdateTwinValueAsync("deviceErrors", deviceErrors, deviceId);
-        await UpdateTwinValueAsync("productionRate", productionRate, deviceId);
+        //updatowanie device twina tylko gdy jakas wartosc sie zmieni
+        //jezeli odczytana wartosc jest inna niz ta co chcemy wsadzic, wtedy wysylamy
+        await UpdateTwinValueAsync("deviceErrors", deviceErrors);
+        await UpdateTwinValueAsync("productionRate", productionRate);
     }
 
-    public static async Task UpdateTwinValueAsync(string valueName, int value, int deviceId = 0)
+    public static async Task UpdateTwinValueAsync(string valueName, int value)
     {
         var twin = await deviceClient.GetTwinAsync();
-
-        string device = $"Device {deviceId}";
-
         var reportedProperties = new TwinCollection();
 
-        reportedProperties[device] = new TwinCollection();
-        reportedProperties[device][valueName] = value;
-
+        reportedProperties = new TwinCollection();
+        reportedProperties[valueName] = value;
         await deviceClient.UpdateReportedPropertiesAsync(reportedProperties);
     }
 
@@ -174,35 +185,28 @@ public class IoTDevice
 
     #region Direct Methods
     #region EmergencyStop
-    async Task EmergencyStop(string deviceId)
+    async Task EmergencyStop()
     {
-        OPCDevice.EmergencyStop(deviceId);
+        OPCDevice.EmergencyStop();
         await (Task.Delay(1000));
     }
     private async Task<MethodResponse> EmergencyStopHandler(MethodRequest methodRequest, object userContext)
     {
         Console.WriteLine($"\tMETHOD EXECUTED: {methodRequest.Name}");
-
-        var payload = JsonConvert.DeserializeAnonymousType(methodRequest.DataAsJson, new { machineId = default(string) });
-
-        await EmergencyStop(payload.machineId);
-
+        await EmergencyStop();
         return new MethodResponse(0);
     }
     #endregion EmergencyStop
     #region ResetErrorStatus
-    async Task ResetErrorStatus(string deviceId)
+    async Task ResetErrorStatus()
     {
-        OPCDevice.ResetErrorStatus(deviceId);
+        OPCDevice.ResetErrorStatus();
         await (Task.Delay(1000));
     }
     private async Task<MethodResponse> ResetErrorStatusHandler(MethodRequest methodRequest, object userContext)
     {
         Console.WriteLine($"\tMETHOD EXECUTED: {methodRequest.Name}");
-
-        var payload = JsonConvert.DeserializeAnonymousType(methodRequest.DataAsJson, new { machineId = default(string) });
-
-        await ResetErrorStatus(payload.machineId);
+        await ResetErrorStatus();
 
         return new MethodResponse(0);
     }
@@ -217,7 +221,6 @@ public class IoTDevice
     private async Task<MethodResponse> MaintenanceHandler(MethodRequest methodRequest, object userContext)
     {
         Console.WriteLine($"\tMETHOD EXECUTED: {methodRequest.Name}");
-
         await Maintenance();
 
         return new MethodResponse(0);
@@ -225,18 +228,15 @@ public class IoTDevice
     #endregion Maintenance
     #region ReduceProductionRate
 
-    private async Task ReduceProductionRate(string deviceId)
+    private async Task ReduceProductionRate()
     {
-        OPCDevice.ReduceProductionRate(deviceId);
+        OPCDevice.ReduceProductionRate();
         await Task.Delay(1000);
     }
     private async Task<MethodResponse> ReduceProductionRateHandler(MethodRequest methodRequest, object userContext)
     {
         Console.WriteLine($"\tMETHOD EXECUTED: {methodRequest.Name}");
-
-        var payload = JsonConvert.DeserializeAnonymousType(methodRequest.DataAsJson, new { deviceId = default(string) });
-
-        await ReduceProductionRate(payload.deviceId);
+        await ReduceProductionRate();
 
         return new MethodResponse(0);
     }
@@ -245,7 +245,6 @@ public class IoTDevice
     private static async Task<MethodResponse> DefaultServiceHandler(MethodRequest methodRequest, object userContext)
     {
         Console.WriteLine($"\tMETHOD EXECUTED: {methodRequest.Name}");
-
         await Task.Delay(1000);
 
         return new MethodResponse(0);
