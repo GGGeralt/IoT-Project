@@ -56,7 +56,7 @@ public class IoTDevice
             badCount = badCount,
             temperature = temperature
         };
-
+        Console.WriteLine(telemetryData);
         await SendTelemetryData(deviceClient, telemetryData);
 
         #endregion telemetryValues

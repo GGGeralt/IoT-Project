@@ -1,0 +1,68 @@
+{
+    "deviceId": "Device1",
+    "etag": "AAAAAAAAAB8=",
+    "deviceEtag": "NzI3Njc1MzI5",
+    "status": "enabled",
+    "statusUpdateTime": "0001-01-01T00:00:00Z",
+    "connectionState": "Disconnected",
+    "lastActivityTime": "2023-01-18T19:12:47.2899359Z",
+    "cloudToDeviceMessageCount": 0,
+    "authenticationType": "sas",
+    "x509Thumbprint": {
+        "primaryThumbprint": null,
+        "secondaryThumbprint": null
+    },
+    "modelId": "",
+    "version": 556,
+    "properties": {
+        "desired": {
+            "productionRate": 70,
+            "$metadata": {
+                "$lastUpdated": "2023-01-18T18:27:54.9663973Z",
+                "$lastUpdatedVersion": 31,
+                "productionRate": {
+                    "$lastUpdated": "2023-01-18T18:27:54.9663973Z",
+                    "$lastUpdatedVersion": 31
+                }
+            },
+            "$version": 31
+        },
+        "reported": {
+            "productionRate": 30,
+            "LastMaintenanceDate": "2023-01-18T18:32:03.7763675+01:00",
+            "lastErrorDate": "2023-01-18T00:00:00+01:00",
+            "deviceErrors": "",
+            "$metadata": {
+                "$lastUpdated": "2023-01-18T19:12:24.3992209Z",
+                "productionRate": {
+                    "$lastUpdated": "2023-01-18T19:12:24.3992209Z",
+                    "DiagnosticSamplingPercentage": {
+                        "$lastUpdated": "2023-01-18T18:06:00.1227466Z"
+                    },
+                    "OperationTimeoutInMilliseconds": {
+                        "$lastUpdated": "2023-01-18T18:06:00.1227466Z"
+                    },
+                    "ProductInfo": {
+                        "$lastUpdated": "2023-01-18T18:06:00.1227466Z"
+                    },
+                    "RetryPolicy": {
+                        "$lastUpdated": "2023-01-18T18:06:00.1227466Z"
+                    }
+                },
+                "LastMaintenanceDate": {
+                    "$lastUpdated": "2023-01-18T17:32:04.0952923Z"
+                },
+                "lastErrorDate": {
+                    "$lastUpdated": "2023-01-18T18:27:31.5837124Z"
+                },
+                "deviceErrors": {
+                    "$lastUpdated": "2023-01-18T19:12:24.3992209Z"
+                }
+            },
+            "$version": 525
+        }
+    },
+    "capabilities": {
+        "iotEdge": false
+    }
+}
