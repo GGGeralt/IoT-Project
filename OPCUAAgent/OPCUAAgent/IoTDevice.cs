@@ -8,10 +8,26 @@ using System.Text;
 using Microsoft.Identity.Client;
 using Microsoft.Azure.Amqp.Framing;
 using System.Net.Sockets;
+using Newtonsoft.Json.Linq;
+
+// NONE           = 0 = 0000
+// EMERGENCY STOP = 1 = 0001
+// POWER FAILURE  = 2 = 0010
+// SENSOR FAILURE = 4 = 0100
+// UNKNOWN        = 8 = 1000
+enum Errors
+{
+    EmergencyStop = 1,
+    PowerFailure = 2,
+    SensorFailue = 4,
+    Unknown = 8
+}
 
 public class IoTDevice
 {
     public static DeviceClient deviceClient;
+    public static bool ifUpdate = false;
+    public static bool created = false;
 
     public IoTDevice(DeviceClient deviceClient)
     {
@@ -41,66 +57,12 @@ public class IoTDevice
             temperature = temperature
         };
 
-        Console.WriteLine(telemetryData);
-
         await SendTelemetryData(deviceClient, telemetryData);
 
         #endregion telemetryValues
 
-        int deviceErrors = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/DeviceError").Value;
-        int productionRate = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/ProductionRate").Value;
-        //HERE
-        await UpdateTwinAsync(deviceErrors, productionRate);
-
-        //Console.WriteLine("-----------------------------------------------------------------");
-
+        await CheckIfUpdateTwin(opcClient);
     }
-
-    //public static async Task SendDataToIoTHub(OpcClient opcClient)
-    //{
-    //    var node = opcClient.BrowseNode(OpcObjectTypes.ObjectsFolder);
-
-    //    if (node.Children().Count() > 1)
-    //    {
-    //        foreach (var childNode in node.Children())
-    //        {
-    //            if (!childNode.DisplayName.Value.Contains("Server"))
-    //            {
-    //                #region telemetryValues
-
-    //                int deviceId = Convert.ToInt32(childNode.DisplayName.Value.Split(" ")[1]);
-
-    //                int productionStatus = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/ProductionStatus").Value;
-    //                string workorderId = (string)opcClient.ReadNode($"ns=2;s=Device {deviceId}/WorkorderId").Value;
-    //                long goodCount = (long)opcClient.ReadNode($"ns=2;s=Device {deviceId}/GoodCount").Value;
-    //                long badCount = (long)opcClient.ReadNode($"ns=2;s=Device {deviceId}/BadCount").Value;
-    //                double temperature = (double)opcClient.ReadNode($"ns=2;s=Device {deviceId}/Temperature").Value;
-
-    //                dynamic telemetryData = new
-    //                {
-    //                    productionStatus = productionStatus,
-    //                    workorderId = workorderId,
-    //                    goodCount = goodCount,
-    //                    badCount = badCount,
-    //                    temperature = temperature
-    //                };
-
-
-    //                await SendTelemetryData(deviceClient, deviceId, telemetryData);
-
-    //                #endregion telemetryValues
-
-    //                int deviceErrors = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/DeviceError").Value;
-    //                int productionRate = (int)opcClient.ReadNode($"ns=2;s=Device {deviceId}/ProductionRate").Value;
-
-    //                await UpdateTwinAsync(deviceId, deviceErrors, productionRate);
-    //            }
-
-    //            //Console.WriteLine();
-    //        }
-    //        //Console.WriteLine("-----------------------------------------------------------------");
-    //    }
-    //}
     public static async Task SendTelemetryData(DeviceClient client, dynamic machineData)
     {
         Console.WriteLine($"Device sending ||TELEMETRY DATA|| messages to IoTHub...\n");
@@ -145,38 +107,128 @@ public class IoTDevice
     #endregion Receiving Messages
 
     #region Device Twin
-    public static async Task UpdateTwinAsync(int deviceErrors, int productionRate)
-    {
-        //updatowanie device twina tylko gdy jakas wartosc sie zmieni
-        //jezeli odczytana wartosc jest inna niz ta co chcemy wsadzic, wtedy wysylamy
-        await UpdateTwinValueAsync("deviceErrors", deviceErrors);
-        await UpdateTwinValueAsync("productionRate", productionRate);
-    }
 
-    public static async Task UpdateTwinValueAsync(string valueName, int value)
+    /*
+    {
+      "deviceId": null,
+      "etag": null,
+      "version": null,
+      "properties": {
+        "desired": {
+          "$version": 1
+      },
+        "reported": {
+          "deviceErrors": 0,
+          "productionRate": 30,
+          "$version": 365
+        }
+      }
+    }
+    */
+    //HERE
+    //updatowanie device twina tylko gdy jakas wartosc sie zmieni
+    //jezeli odczytana wartosc jest inna niz ta co chcemy wsadzic, wtedy wysylamy
+
+    public static async Task CheckIfUpdateTwin(OpcClient opcClient)
     {
         var twin = await deviceClient.GetTwinAsync();
-        var reportedProperties = new TwinCollection();
 
-        reportedProperties = new TwinCollection();
-        reportedProperties[valueName] = value;
+        if (created == false)
+        {
+            UpdateTwinAsync(string.Empty, 0);
+            created = true;
+        }
+        else
+        {
+            string errors = string.Empty;
+
+            int productionRate = (int)opcClient.ReadNode($"ns=2;s=Device {Program.deviceID}/ProductionRate").Value;
+            int deviceErrors = (int)opcClient.ReadNode($"ns=2;s=Device {Program.deviceID}/DeviceError").Value;
+
+            if ((deviceErrors & Convert.ToInt32(Errors.Unknown)) != 0)
+            {
+                errors += "Unknown, ";
+            }
+            if ((deviceErrors & Convert.ToInt32(Errors.SensorFailue)) != 0)
+            {
+                errors += "SensorFailure, ";
+            }
+            if ((deviceErrors & Convert.ToInt32(Errors.PowerFailure)) != 0)
+            {
+                errors += "PowerFailure, ";
+            }
+            if ((deviceErrors & Convert.ToInt32(Errors.EmergencyStop)) != 0)
+            {
+                errors += "Emergency stop";
+            }
+
+            if (twin.Properties.Reported["deviceErrors"] != errors)
+            {
+                ifUpdate = true;
+            }
+
+            int twinProductionRate = twin.Properties.Reported["productionRate"];
+
+            if (twinProductionRate != productionRate)
+            {
+                ifUpdate = true;
+            }
+
+            if (ifUpdate)
+            {
+                Console.WriteLine("   ----------------");
+                Console.WriteLine($"   UDATING DEVICE {Program.deviceID}");
+                Console.WriteLine("   ----------------");
+                UpdateTwinAsync(errors, productionRate);
+
+            }
+            else
+            {
+                Console.WriteLine("------------------");
+                Console.WriteLine($"DEVICE {Program.deviceID} IS ACTUAL");
+                Console.WriteLine("------------------");
+            }
+        }
+        await Task.Delay(1000);
+    }
+
+    public static async Task UpdateTwinAsync(string deviceErrors, int productionRate)
+    {
+        var reportedProperties = new TwinCollection();
+        ifUpdate = false;
+
+        reportedProperties["productionRate"] = productionRate;
+
+        if (deviceErrors != string.Empty)
+        {
+            reportedProperties["deviceErrors"] = deviceErrors;
+            reportedProperties["lastErrorDate"] = DateTime.Today;
+        }
+        else
+        {
+            reportedProperties["deviceErrors"] = string.Empty;
+        }
         await deviceClient.UpdateReportedPropertiesAsync(reportedProperties);
     }
 
-    public static async Task UpdateTwinValueAsync(string valueName, DateTime value, int deviceId = 0)
+    public static async Task UpdateTwinValueAsync(string valueName, dynamic value)
     {
         var twin = await deviceClient.GetTwinAsync();
+
         var reportedProperties = new TwinCollection();
         reportedProperties[valueName] = value;
 
         await deviceClient.UpdateReportedPropertiesAsync(reportedProperties);
     }
+
 
     private async Task OnDesiredPropertyChanged(TwinCollection desiredProperties, object userContext)
     {
-        Console.WriteLine($"\tDesired property change:\n\t{JsonConvert.SerializeObject(desiredProperties)}");
+        int value = desiredProperties["productionRate"];
+
+        OPCDevice.SetProductionRate(value);
         TwinCollection reportedProperties = new TwinCollection();
-        reportedProperties["productionRate"] = userContext;
+        reportedProperties["productionRate"] = value;
 
         await deviceClient.UpdateReportedPropertiesAsync(reportedProperties).ConfigureAwait(false);
     }
@@ -216,7 +268,6 @@ public class IoTDevice
     {
         OPCDevice.Maintenance();
         await (Task.Delay(1000));
-
     }
     private async Task<MethodResponse> MaintenanceHandler(MethodRequest methodRequest, object userContext)
     {

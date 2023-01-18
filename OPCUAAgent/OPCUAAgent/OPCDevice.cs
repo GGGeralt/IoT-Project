@@ -72,5 +72,10 @@ public class OPCDevice
         client.WriteNode($"ns=2;s=Device {Program.deviceID}/ProductionRate", OpcAttribute.Value, value - 10);
         await Task.Delay(1000);
     }
+    public static async Task SetProductionRate(int value)
+    {
+        client.WriteNode($"ns=2;s=Device {Program.deviceID}/ProductionRate", OpcAttribute.Value, value);
+        await Task.Delay(1000);
+    }
 }
 

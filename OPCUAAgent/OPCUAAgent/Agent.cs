@@ -27,7 +27,6 @@ public class Program
 
         await device.InitializeHandlers();
 
-
         //odczytywanie i wysylanie co sekunde
         var periodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(1));
         while (await periodicTimer.WaitForNextTickAsync())
